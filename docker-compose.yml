@@ -7,11 +7,11 @@ services:
     environment:
       # ALLOW_EMPTY_PASSWORD is recommended only for development.
       # - ALLOW_EMPTY_PASSWORD=yes
-      - MARIADB_USER=bn_moodle
-      - MARIADB_DATABASE=bitnami_moodle
+      - MARIADB_USER=${MOODLE_DATABASE_USER}
+      - MARIADB_DATABASE=${MOODLE_DATABASE_NAME}
       - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
       - MARIADB_PORT=3306
-      - MARIADB_PASSWORD=db@p4$$w0rd
+      - MARIADB_PASSWORD=${MOODLE_DATABASE_PASSWORD}
       - MARIADB_CHARACTER_SET=utf8mb4
       - MARIADB_COLLATE=utf8mb4_unicode_ci
     volumes:
@@ -23,19 +23,19 @@ services:
   moodle:
     image: docker.io/bitnami/moodle:5.0
     ports:
-      - '8088:8080'
+      - '${MOODLE_PORT:-8088}:8080'
       - '8443:8443'
     environment:
       - MOODLE_DATABASE_HOST=mariadb
       - MOODLE_DATABASE_PORT_NUMBER=3306
-      - MOODLE_DATABASE_USER=bn_moodle
-      - MOODLE_DATABASE_NAME=${MOODLE_DATABASE_USER}
+      - MOODLE_DATABASE_USER=${MOODLE_DATABASE_USER}
+      - MOODLE_DATABASE_NAME=${MOODLE_DATABASE_NAME}
       - MOODLE_DATABASE_PASSWORD=${MOODLE_DATABASE_PASSWORD}
       # ALLOW_EMPTY_PASSWORD is recommended only for development.
       # - ALLOW_EMPTY_PASSWORD=yesS
       - MOODLE_USERNAME=admin
       - MOODLE_PASSWORD=${MOODLE_ADMIN_PASSWORD}
-      - MOODLE_SITE_NAME=Escola Alfredo Dub - Treinamentos
+      - MOODLE_SITE_NAME=${MOODLE_SITE_NAME}
     volumes:
       - 'moodle_data:/bitnami/moodle'
       - 'moodledata_data:/bitnami/moodledata'
