@@ -3,7 +3,7 @@
 name: moodle_bitnami_phpmyadmin
 services:
   mariadb:
-    image: docker.io/bitnami/mariadb:latest
+    image: bitnamilegacy/mariadb:latest
     environment:
       # ALLOW_EMPTY_PASSWORD is recommended only for development.
       # - ALLOW_EMPTY_PASSWORD=yes
@@ -21,7 +21,7 @@ services:
     ports:
       - '${MARIADB_FORWARD_PORT-3306}:3306'
   moodle:
-    image: docker.io/bitnami/moodle:5.0
+    image: bitnamilegacy/moodle:latest 
     ports:
       - '${MOODLE_PORT:-8088}:8080'
       - '8443:8443'
